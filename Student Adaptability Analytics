@@ -1,0 +1,20 @@
+#The data for this project is from Students Adaptability Level in Online Education from Kaggle
+#Data was imported into a table in BigQuery Sandbox
+#Data was analyzed using SQL
+
+##create a table containing the data of students with low adaptivity levels
+WITH
+  low_adaptivity AS(
+      SELECT 
+        *
+      FROM 
+        `my-data-project-12345-344719.student_online_adaptability.adaptability_levels`
+      WHERE 
+        Adaptivity_Level = "Low")
+##determine financial condition of low adaptivity level students
+SELECT
+  COUNT(Financial_Condition)
+FROM 
+  low_adaptivity
+GROUP BY
+  Financial_Condition
