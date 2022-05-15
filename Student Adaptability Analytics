@@ -1,6 +1,21 @@
 #The data for this project is from Students Adaptability Level in Online Education from Kaggle
 #Data was imported into a table in BigQuery Sandbox
 #Data was analyzed using SQL
+#Data Schema
+Gender	STRING	NULLABLE		
+Age	STRING	NULLABLE		
+Education_Level	STRING	NULLABLE		
+Institution_Type	STRING	NULLABLE		
+IT_Student	BOOLEAN	NULLABLE		
+Location	BOOLEAN	NULLABLE		
+Load_shedding	STRING	NULLABLE		
+Financial_Condition	STRING	NULLABLE		
+Internet_Type	STRING	NULLABLE		
+Network_Type	STRING	NULLABLE		
+Class_Duration	STRING	NULLABLE		
+Self_Lms	BOOLEAN	NULLABLE		
+Device	STRING	NULLABLE		
+Adaptivity_Level	STRING	NULLABLE	
 
 ##create a table containing the data of students with low adaptivity levels
 WITH
@@ -18,3 +33,36 @@ FROM
   low_adaptivity
 GROUP BY
   Financial_Condition
+##determine internet type breakdown of low adaptability students
+SELECT
+  COUNT(Internet_Type)
+FROM
+  low_adaptivity
+WHERE 
+  Internet_Type = "Wifi"
+ SELECT
+  COUNT(Internet_Type)
+FROM
+  low_adaptivity
+WHERE 
+  Internet_Type = "Mobile Data"
+ ##determine any difference between government and non government institutions
+SELECT
+  COUNT(Institution_Type)  
+FROM
+  low_adaptivity
+GROUP BY
+  Institution_Type
+ ##determine gender breakdown of low adaptivity students
+SELECT
+  COUNT(Gender)
+FROM 
+  low_adaptivity
+WHERE
+  Gender = "Boy"
+ SELECT
+  COUNT(Gender)
+FROM 
+  low_adaptivity
+WHERE
+  Gender = "Girl"
