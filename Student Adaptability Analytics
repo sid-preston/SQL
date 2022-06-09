@@ -66,3 +66,40 @@ FROM
   low_adaptivity
 WHERE
   Gender = "Girl"
+ WITH
+  high_adaptivity AS(
+    SELECT
+      *
+    FROM
+      `my-data-project-12345-344719.student_online_adaptability.adaptability_levels`
+    WHERE
+      Adaptivity_Level = "High")
+SELECT
+  *
+FROM
+  high_adaptivity
+WHERE
+  Financial_Condition = "Poor"
+ SELECT
+  *
+FROM
+  high_adaptivity
+WHERE
+  Financial_Condition = "Mid"
+  *
+FROM
+  high_adaptivity
+WHERE
+  Financial_Condition = "Rich"
+ SELECT
+  *
+FROM
+  high_adaptivity
+WHERE
+  Gender= "Boy"
+ SELECT
+  *
+FROM
+  high_adaptivity
+WHERE
+  Gender= "Girl"
