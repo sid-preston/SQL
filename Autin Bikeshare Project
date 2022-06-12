@@ -1,0 +1,49 @@
+Data from Bigquery-public-data 
+
+Schema
+trip_id	INTEGER	NULLABLE		
+Numeric ID of bike trip	
+subscriber_type	STRING	NULLABLE		
+Type of the Subscriber	
+bikeid	STRING	NULLABLE		
+ID of bike used	
+start_time	TIMESTAMP	NULLABLE		
+Start timestamp of trip	
+start_station_id	INTEGER	NULLABLE		
+Numeric reference for start station	
+start_station_name	STRING	NULLABLE		
+Station name for start station	
+end_station_id	STRING	NULLABLE		
+Numeric reference for end station	
+end_station_name	STRING	NULLABLE		
+Station name for end station	
+duration_minutes	INTEGER	NULLABLE
+Time of trip in minutes
+
+Temporary Table with Inner Join
+WITH 
+    longest_used_bike AS(
+        SELECT 
+         bikeid,
+            SUM(duration_minutes) AS trip_duration
+        FROM `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+        GROUP BY 
+            bikeid
+        ORDER BY
+        trip_duration DESC
+        LIMIT 1
+    )
+## find the station at which the longest bikeshare ride started
+SELECT
+    trips.start_station_id,
+    COUNT(*) AS trip_ct
+FROM 
+    longest_used_bike AS longest
+INNER JOIN
+    `bigquery-public-data.austin_bikeshare.bikeshare_trips` AS trips
+ON longest.bikeid = trips.bikeid
+GROUP BY
+    trips.start_station_id
+ORDER BY
+    trip_ct DESC
+LIMIT 1
